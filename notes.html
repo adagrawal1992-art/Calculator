@@ -14,7 +14,7 @@
   *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
   html,body{height:100%;background:#000;color:#fff;overflow:hidden;overscroll-behavior:none}
   body{font-family:-apple-system,"SF Pro Text","SF Pro",system-ui,"Helvetica Neue",Arial,sans-serif;-webkit-user-select:none;user-select:none}
-  .screen{position:fixed;top:0;left:0;right:0;height:100vh;height:100lvh;background:#000;overflow:hidden}
+  .screen{position:fixed;top:0;left:0;right:0;bottom:0;background:#000;overflow:hidden}
   .hidden{display:none !important}
   /* round glass buttons */
   .rb{position:absolute;top:calc(env(safe-area-inset-top) + 0px);width:43.7px;height:43.7px;border-radius:50%;
@@ -40,7 +40,7 @@
   .rd{font-size:17px;color:#808085;line-height:23px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
   .rd b{font-weight:400;margin-right:9px}
   /* bottom bars */
-  .bottom{position:absolute;left:28px;right:35px;bottom:calc(env(safe-area-inset-bottom) - 5px);height:46px;display:flex;justify-content:space-between;align-items:center}
+  .bottom{position:absolute;left:28px;right:35px;bottom:max(8px, calc(29px - var(--gap, 0px)));height:46px;display:flex;justify-content:space-between;align-items:center}
   .search{width:285px;max-width:calc(100% - 59px);height:46px;border-radius:23px;background:#1f1f1f;display:flex;align-items:center;padding:0 14px;gap:9px;
     box-shadow:inset 0 .8px 0 rgba(255,255,255,.14),inset 0 -.8px 0 rgba(255,255,255,.07)}
   .search input{flex:1;min-width:0;background:none;border:none;outline:none;color:#fff;font:inherit;font-size:19px;-webkit-user-select:text;user-select:text}
@@ -67,6 +67,18 @@
   #set .go{background:#0a84ff}
   #ans{color:#ffd60a;font-size:15px;margin-top:6px}
 </style>
+<script>
+(function(){
+  function fitGap(){
+    var sh = Math.max(screen.height, screen.width) , ih = window.innerHeight;
+    if (window.innerWidth > window.innerHeight) sh = Math.min(screen.height, screen.width);
+    var gap = Math.max(0, sh - ih);
+    document.documentElement.style.setProperty('--gap', gap + 'px');
+  }
+  fitGap(); window.addEventListener('resize', fitGap); window.addEventListener('orientationchange', function(){ setTimeout(fitGap, 300); });
+  if (window.visualViewport) visualViewport.addEventListener('resize', fitGap);
+})();
+</script>
 </head>
 <body>
 
@@ -111,7 +123,7 @@
 
 <!-- ============ SETTINGS ============ -->
 <div id="set" class="hidden">
-  <h2>Performer settings <span style="color:#8e8e93;font-size:14px;font-weight:400">v3</span></h2>
+  <h2>Performer settings <span style="color:#8e8e93;font-size:14px;font-weight:400">v5</span></h2>
   <div id="ans"></div>
   <div class="btn" id="sReset">Clear captured answers</div>
 
@@ -299,7 +311,7 @@
   if(!S.topic){ S.topic=newTopic(); save(); }
   var es=null, rState='off';
   function helperURL(){ return location.href.replace(/[#?].*$/,'').replace(/[^\/]*$/,'')+'helper.html#'+S.topic; }
-  function publish(obj){ if(!S.remote) return; try{ fetch('https://ntfy.sh/'+S.topic,{method:'POST',body:JSON.stringify(obj)}); }catch(e){} }
+  function publish(obj){ if(!S.remote) return; try{ fetch('https://ntfy.sh/'+S.topic,{method:'POST',body:JSON.stringify(obj)}).catch(function(){}); }catch(e){} }
   function sendState(){ publish({from:'notes',answers:A,slots:slots()}); }
   function onRemote(m){
     var d; try{ d=JSON.parse(m); }catch(e){ return; }
@@ -315,18 +327,19 @@
     if(es){ es.close(); es=null; }
     if(!S.remote || !window.EventSource){ rState='off'; return; }
     rState='connecting…';
-    es=new EventSource('https://ntfy.sh/'+S.topic+'/sse');
+    try{ es=new EventSource('https://ntfy.sh/'+S.topic+'/sse'); }catch(x){ es=null; rState='no connection'; return; }
     es.onopen=function(){ rState='connected ✓'; sendState(); updRS(); };
     es.onerror=function(){ rState='reconnecting…'; updRS(); };
     es.onmessage=function(e){ try{ var j=JSON.parse(e.data); if(j.event==='message') onRemote(j.message); }catch(x){} };
   }
   function updRS(){ var el=$('rStat'); if(el) el.textContent='Status: '+rState; }
   document.addEventListener('visibilitychange',function(){ if(!document.hidden && S.remote && (!es || es.readyState===2)) connect(); });
-  $('rCopy').addEventListener('click',function(){ var u=helperURL(); if(navigator.clipboard) navigator.clipboard.writeText(u).then(function(){ $('rCopy').textContent='Copied ✓'; setTimeout(function(){$('rCopy').textContent='Copy helper link';},1500); }); });
+  $('rCopy').addEventListener('click',function(){ var u=helperURL(); if(navigator.clipboard) navigator.clipboard.writeText(u).catch(function(){}).then(function(){ $('rCopy').textContent='Copied ✓'; setTimeout(function(){$('rCopy').textContent='Copy helper link';},1500); }); });
   $('rNew').addEventListener('click',function(){ S.topic=newTopic(); save(); $('rLink').textContent=helperURL(); connect(); });
   $('sRemote').addEventListener('change',function(){ S.remote=$('sRemote').checked; save(); connect(); });
 
-  renderList(); connect();
+  renderList(); try{ connect(); }catch(e){}
+  window.addEventListener('error',function(e){ e.preventDefault&&e.preventDefault(); return true; });
   window.__notes={addAnswer:addAnswer,get:function(){return {A:A,note:filled()};},openNote:openNote,arm:arm};
 })();
 </script>

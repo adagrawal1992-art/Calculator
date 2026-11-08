@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Notes">
+<meta name="theme-color" content="#000000">
+<title>Notes</title>
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
+  html,body{height:100%;background:#000;color:#fff;overflow:hidden;overscroll-behavior:none}
+  body{font-family:-apple-system,"SF Pro Text","SF Pro",system-ui,"Helvetica Neue",Arial,sans-serif;-webkit-user-select:none;user-select:none}
+  .screen{position:fixed;top:0;left:0;right:0;height:100vh;height:100lvh;background:#000;overflow:hidden}
+  .hidden{display:none !important}
+  /* round glass buttons */
+  .rb{position:absolute;top:calc(env(safe-area-inset-top) + 0px);width:43.7px;height:43.7px;border-radius:50%;
+    background:#202020;display:flex;align-items:center;justify-content:center;
+    box-shadow:inset 0 .8px 0 rgba(255,255,255,.16),inset 0 -.8px 0 rgba(255,255,255,.08)}
+  .rb svg{display:block}
+  .left{left:16px} .right{right:16px}
+  .pill{position:absolute;top:env(safe-area-inset-top);right:16px;height:43.7px;width:103px;border-radius:22px;background:#202020;
+    display:flex;align-items:center;justify-content:space-around;padding:0 6px;box-shadow:inset 0 .8px 0 rgba(255,255,255,.16),inset 0 -.8px 0 rgba(255,255,255,.08)}
+  /* list header */
+  #hTitle{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top) + 2px);text-align:center;font-size:17px;font-weight:600;line-height:22px}
+  #hSub{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top) + 24px);text-align:center;font-size:16px;color:#8e8e93;line-height:22px;
+    display:flex;align-items:center;justify-content:center;gap:6px}
+  #spin{width:15px;height:15px;animation:sp 1s steps(8) infinite}
+  #spin.listen{visibility:hidden}
+  @keyframes sp{to{transform:rotate(360deg)}}
+  #listBody{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top) + 58px);bottom:0;overflow-y:auto;padding:0 16px 140px}
+  .sec{font-size:22px;font-weight:700;line-height:28px;margin:12px 1px 9px}
+  .card{background:#1c1c1e;border-radius:26px;margin-bottom:26px;overflow:hidden}
+  .row{padding:9px 22px 8px 30px;position:relative}
+  .row+.row::before{content:"";position:absolute;top:0;left:30px;right:0;border-top:.5px solid #38383a}
+  .rt{font-size:19px;font-weight:600;line-height:24px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:-.01em}
+  .rd{font-size:17px;color:#808085;line-height:23px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+  .rd b{font-weight:400;margin-right:9px}
+  /* bottom bars */
+  .bottom{position:absolute;left:28px;right:35px;bottom:calc(env(safe-area-inset-bottom) - 5px);height:46px;display:flex;justify-content:space-between;align-items:center}
+  .search{width:285px;max-width:calc(100% - 59px);height:46px;border-radius:23px;background:#1f1f1f;display:flex;align-items:center;padding:0 14px;gap:9px;
+    box-shadow:inset 0 .8px 0 rgba(255,255,255,.14),inset 0 -.8px 0 rgba(255,255,255,.07)}
+  .search input{flex:1;min-width:0;background:none;border:none;outline:none;color:#fff;font:inherit;font-size:19px;-webkit-user-select:text;user-select:text}
+  .search input::placeholder{color:#8a8a8e}
+  .circle{width:46px;height:46px;border-radius:50%;background:#1f1f1f;display:flex;align-items:center;justify-content:center;
+    box-shadow:inset 0 .8px 0 rgba(255,255,255,.14),inset 0 -.8px 0 rgba(255,255,255,.07)}
+  .tools{width:176px;height:46px;border-radius:23px;background:#1f1f1f;display:flex;align-items:center;justify-content:space-around;padding:0 8px;
+    box-shadow:inset 0 .8px 0 rgba(255,255,255,.14),inset 0 -.8px 0 rgba(255,255,255,.07)}
+  /* note view */
+  #noteBody{position:absolute;left:0;right:0;top:calc(env(safe-area-inset-top) + 62px);bottom:0;overflow-y:auto;padding:4px 26px 140px;
+    font-size:19px;line-height:28px;color:#dcdcdc;white-space:pre-wrap;word-wrap:break-word}
+  #noteBody .t{font-size:30px;line-height:38px;font-weight:700;color:#fff;margin-bottom:4px;white-space:pre-wrap}
+  /* settings */
+  #set{position:fixed;inset:0;background:#000;z-index:20;overflow-y:auto;padding:calc(env(safe-area-inset-top) + 16px) 20px 60px;-webkit-user-select:text;user-select:text}
+  #set h2{font-size:20px;margin-bottom:8px}
+  #set h3{font-size:13px;color:#8e8e93;text-transform:uppercase;letter-spacing:.04em;margin:18px 0 6px}
+  #set label{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid #2c2c2e;font-size:16px}
+  #set textarea{width:100%;min-height:220px;background:#1c1c1e;color:#fff;border:1px solid #3a3a3c;border-radius:10px;padding:10px;font:inherit;font-size:15px;line-height:21px}
+  #set textarea.sm{min-height:90px}
+  #set input[type=number],#set input[type=text],#set select{background:#1c1c1e;color:#fff;border:1px solid #3a3a3c;border-radius:8px;padding:7px;font-size:16px;max-width:55%}
+  #set input[type=checkbox]{width:22px;height:22px}
+  #set .note{color:#8e8e93;font-size:13px;line-height:1.5;margin-top:8px}
+  #set .btn{display:block;margin-top:12px;width:100%;padding:13px;border-radius:12px;border:none;background:#2c2c2e;color:#fff;font-size:16px;font-weight:600;text-align:center}
+  #set .go{background:#0a84ff}
+  #ans{color:#ffd60a;font-size:15px;margin-top:6px}
+</style>
+</head>
+<body>
+
+<!-- ============ LIST SCREEN ============ -->
+<div class="screen" id="list">
+  <div class="rb left" id="lBack"><svg width="14" height="24" viewBox="0 0 14 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 2L2 12l9.5 10"/></svg></div>
+  <div id="hTitle">Notes</div>
+  <div id="hSub">
+    <svg id="spin" viewBox="0 0 24 24"><g stroke="#8e8e93" stroke-width="2.6" stroke-linecap="round"><path d="M12 2v5" opacity="1"/><path d="M19.07 4.93l-3.54 3.54" opacity=".3"/><path d="M22 12h-5" opacity=".35"/><path d="M19.07 19.07l-3.54-3.54" opacity=".45"/><path d="M12 22v-5" opacity=".55"/><path d="M4.93 19.07l3.54-3.54" opacity=".65"/><path d="M2 12h5" opacity=".75"/><path d="M4.93 4.93l3.54 3.54" opacity=".9"/></g></svg>
+    <svg id="cloud" width="22" height="18" viewBox="0 0 28 22" fill="none" stroke="#8e8e93" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 19h13.5a5 5 0 0 0 .9-9.9A7.5 7.5 0 0 0 8.2 7.5 5.8 5.8 0 0 0 8 19z"/><path d="M4 2l20 19"/></svg>
+    <span id="subTxt">Storage Full</span>
+  </div>
+  <div class="rb right" id="lMore"><svg width="24" height="6" viewBox="0 0 24 6" fill="#fff"><circle cx="3" cy="3" r="2.6"/><circle cx="12" cy="3" r="2.6"/><circle cx="21" cy="3" r="2.6"/></svg></div>
+  <div id="listBody"></div>
+  <div class="bottom">
+    <div class="search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="7"/><path d="M16 16l5.5 5.5"/></svg>
+      <input id="q" type="text" placeholder="Search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="search">
+      <svg width="16" height="24" viewBox="0 0 16 24" fill="none" stroke="#d0d0d0" stroke-width="2" stroke-linecap="round"><rect x="4.5" y="1.5" width="7" height="13" rx="3.5"/><path d="M1.5 11.5a6.5 6.5 0 0 0 13 0M8 18v4.5M4.5 22.5h7"/></svg>
+    </div>
+    <div class="circle"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5H7A3.5 3.5 0 0 0 3.5 7v12A3.5 3.5 0 0 0 7 22.5h12a3.5 3.5 0 0 0 3.5-3.5v-5"/><path d="M20.5 2.5l3 3L13 16l-4 1 1-4z"/></svg></div>
+  </div>
+</div>
+
+<!-- ============ NOTE SCREEN ============ -->
+<div class="screen hidden" id="note">
+  <div class="rb left" id="nBack"><svg width="14" height="24" viewBox="0 0 14 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11.5 2L2 12l9.5 10"/></svg></div>
+  <div class="pill">
+    <svg width="22" height="28" viewBox="0 0 22 28" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 17V2M6 6.5L11 1.5l5 5"/><path d="M7 11H5a3 3 0 0 0-3 3v9.5a3 3 0 0 0 3 3h12a3 3 0 0 0 3-3V14a3 3 0 0 0-3-3h-2"/></svg>
+    <svg width="24" height="6" viewBox="0 0 24 6" fill="#fff"><circle cx="3" cy="3" r="2.6"/><circle cx="12" cy="3" r="2.6"/><circle cx="21" cy="3" r="2.6"/></svg>
+  </div>
+  <div id="noteBody"></div>
+  <div class="bottom">
+    <div class="tools">
+      <svg width="28" height="24" viewBox="0 0 28 24" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="5.5" r="4" fill="#fff"/><path d="M3.2 5.6l1.3 1.3 2.4-2.6" stroke="#1f1f1f"/><circle cx="5" cy="18" r="3.6"/><path d="M12 5.5h14M12 18h14"/></svg>
+      <svg width="24" height="26" viewBox="0 0 24 26" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11.5l-8.6 8.6a5 5 0 0 1-7.1-7.1l9.2-9.2a3.4 3.4 0 0 1 4.8 4.8l-9 9a1.7 1.7 0 0 1-2.4-2.4l8.1-8.1"/></svg>
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><circle cx="13" cy="13" r="11"/><path d="M8.5 21.5L12 8.5a1 1 0 0 1 2 0l3.5 13M10 16h6"/></svg>
+    </div>
+    <div class="circle"><svg width="26" height="26" viewBox="0 0 26 26" fill="none" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5H7A3.5 3.5 0 0 0 3.5 7v12A3.5 3.5 0 0 0 7 22.5h12a3.5 3.5 0 0 0 3.5-3.5v-5"/><path d="M20.5 2.5l3 3L13 16l-4 1 1-4z"/></svg></div>
+  </div>
+</div>
+
+<!-- ============ SETTINGS ============ -->
+<div id="set" class="hidden">
+  <h2>Performer settings <span style="color:#8e8e93;font-size:14px;font-weight:400">v3</span></h2>
+  <div id="ans"></div>
+  <div class="btn" id="sReset">Clear captured answers</div>
+
+  <h3>Prediction note</h3>
+  <p class="note">Write the note exactly as it should look. The first line is the title. Put <b>[number]</b> where a spoken number goes and <b>[word]</b> where a spoken word or name goes. They are filled in order, top to bottom.</p>
+  <textarea id="sTpl"></textarea>
+  <label>Note written … days ago <input type="number" id="sDays" min="0" max="300"></label>
+
+  <h3>Other notes in the list</h3>
+  <p class="note">One per line: <b>Title | preview text | date (dd/mm/yy)</b></p>
+  <textarea id="sOther" class="sm"></textarea>
+
+  <h3>Remote helper (assistant types answers on their phone)</h3>
+  <label>Remote helper on <input type="checkbox" id="sRemote"></label>
+  <p class="note">Helper link — open it on the helper’s phone (Safari or Chrome). Anything they send appears in the note instantly.</p>
+  <div id="rLink" style="font-size:14px;word-break:break-all;color:#0a84ff;margin-top:6px"></div>
+  <div class="btn" id="rCopy">Copy helper link</div>
+  <div class="btn" id="rNew">Make a new private code</div>
+  <p class="note" id="rStat">Status: —</p>
+
+  <h3>Listening</h3>
+  <label>Speech language
+    <select id="sLang"><option value="en-IN">English (India)</option><option value="en-US">English (US)</option><option value="en-GB">English (UK)</option><option value="hi-IN">Hindi</option></select></label>
+  <label>Header text <input type="text" id="sSub"></label>
+  <label>Show cloud icon <input type="checkbox" id="sCloud"></label>
+
+  <p class="note"><b>How to perform</b><br>
+  • Ask the question (“Say any number”), then secretly <b>tap the empty black area</b> under the notes. The little spinner next to “Storage Full” disappears = listening.<br>
+  • When they answer out loud, the spinner comes back = captured. Repeat for the next question.<br>
+  • Backup: type the answers in the <b>Search</b> bar as if looking for the note (e.g. <i>18, Virat</i>). Then tap the note — the search text clears itself.<br>
+  • Tap the prediction note to show it.<br>
+  • Hold the <b>back arrow</b> inside the note for 1.5 s = clear answers for the next show.<br>
+  • <b>Remote helper:</b> the helper types each answer on their phone and taps Send. It goes straight into the note — even while the note is open.<br>
+  • Hold the word <b>“Notes”</b> at the top for 1.5 s = these settings.</p>
+  <div class="btn go" id="sDone">Done</div>
+</div>
+
+<script>
+(function(){
+  var DEF={
+    tpl:"Predictions\nTonight’s feeling — noted early\n\nNumber – [number]\nCricketer – [word]\nCity – [word]\nColour – [word]\n\nCall CA about GST\nBuy flowers for stage\nGym 7 am",
+    days:4,
+    other:"“Even if there is a 1% chance, sometimes that chance is good enough.” | .” | 27/05/26",
+    lang:'en-IN', sub:'Storage Full', cloud:true, remote:true, topic:''
+  };
+  var S=Object.assign({},DEF), A=[];
+  try{var r=localStorage.getItem('notesSet'); if(r) S=Object.assign(S,JSON.parse(r)); var a=localStorage.getItem('notesAns'); if(a) A=JSON.parse(a);}catch(e){}
+  function save(){try{localStorage.setItem('notesSet',JSON.stringify(S));localStorage.setItem('notesAns',JSON.stringify(A));}catch(e){}}
+  var $=function(id){return document.getElementById(id);};
+  var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+  // ---------- template ----------
+  function slots(){ var m=S.tpl.match(/\[(number|word)\]/gi)||[]; return m.map(function(x){return x.toLowerCase().indexOf('number')>=0?'number':'word';}); }
+  function filled(){
+    var i=0;
+    return S.tpl.replace(/\[(number|word)\]/gi,function(){ var v=A[i++]; return v==null?'':v; });
+  }
+  function pad(n){return (n<10?'0':'')+n;}
+  function noteDate(){ var d=new Date(Date.now()-S.days*864e5); return d; }
+  function ddmmyy(d){ return pad(d.getDate())+'/'+pad(d.getMonth()+1)+'/'+String(d.getFullYear()).slice(2); }
+  function parseDate(s){ var m=(s||'').match(/(\d{1,2})\/(\d{1,2})\/(\d{2,4})/); if(!m) return null; var y=+m[3]; if(y<100) y+=2000; return new Date(y,+m[2]-1,+m[1]); }
+  function section(d){
+    var now=new Date(), diff=(now-d)/864e5;
+    var today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+    if(d>=today) return 'Today';
+    if(d>=new Date(today-864e5)) return 'Yesterday';
+    if(diff<=7) return 'Previous 7 Days';
+    if(diff<=30) return 'Previous 30 Days';
+    return d.getFullYear()===now.getFullYear()? MON[d.getMonth()] : String(d.getFullYear());
+  }
+  function esc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+
+  // ---------- list ----------
+  function renderList(){
+    var lines=S.tpl.split('\n'), title=lines[0]||'New Note', prev='';
+    for(var i=1;i<lines.length;i++){ if(lines[i].trim() && !/\[(number|word)\]/i.test(lines[i])){prev=lines[i].trim();break;} }
+    var notes=[{t:title,p:prev,d:noteDate(),pred:true}];
+    S.other.split('\n').forEach(function(l){ if(!l.trim()) return; var p=l.split('|'); var d=parseDate(p[2])||new Date(2026,4,27);
+      notes.push({t:(p[0]||'').trim(),p:(p[1]||'').trim(),d:d}); });
+    notes.sort(function(a,b){return b.d-a.d;});
+    var html='', cur=null;
+    notes.forEach(function(n,i){
+      var sec=section(n.d);
+      if(sec!==cur){ if(cur!==null) html+='</div>'; html+='<div class="sec">'+esc(sec)+'</div><div class="card">'; cur=sec; }
+      html+='<div class="row'+(n.pred?' pred':'')+'"><div class="rt">'+esc(n.t)+'</div><div class="rd"><b>'+ddmmyy(n.d)+'</b>'+esc(n.p)+'</div></div>';
+    });
+    if(cur!==null) html+='</div>';
+    html+='<div id="empty" style="height:900px"></div>';
+    $('listBody').innerHTML=html;
+    $('subTxt').textContent=S.sub; $('cloud').style.display=S.cloud?'':'none';
+  }
+  function renderNote(){
+    var txt=filled(), i=txt.indexOf('\n'), t=i<0?txt:txt.slice(0,i), rest=i<0?'':txt.slice(i+1);
+    $('noteBody').innerHTML='<div class="t">'+esc(t)+'</div>'+esc(rest);
+  }
+
+  // ---------- answer parsing ----------
+  var NUMW={zero:0,one:1,two:2,three:3,four:4,five:5,six:6,seven:7,eight:8,nine:9,ten:10,eleven:11,twelve:12,thirteen:13,fourteen:14,fifteen:15,sixteen:16,seventeen:17,eighteen:18,nineteen:19,twenty:20,thirty:30,forty:40,fifty:50,sixty:60,seventy:70,eighty:80,ninety:90,hundred:100};
+  function parseNumber(s){
+    var m=s.replace(/,/g,'').match(/\d+/); if(m) return m[0];
+    var w=s.toLowerCase().replace(/-/g,' ').split(/\s+/), tot=null, cur=0;
+    w.forEach(function(x){ if(x in NUMW){ var v=NUMW[x]; if(v===100){cur=(cur||1)*100;} else cur+=v; tot=cur; } });
+    return tot==null?null:String(tot);
+  }
+  function cleanWord(s){
+    s=s.trim().replace(/[.?!]+$/,'');
+    s=s.replace(/^(i think( it'?s)?|i'?ll (say|go with)|my answer is|it'?s|it is|maybe|umm*|uh+|okay|ok|the answer is)\s+/i,'');
+    var w=s.split(/\s+/).slice(0,4).join(' ');
+    return w.replace(/\b\w/g,function(c){return c.toUpperCase();});
+  }
+  function addAnswer(raw){
+    var sl=slots(); if(A.length>=sl.length) return false;
+    var type=sl[A.length], v = type==='number'? parseNumber(raw) : cleanWord(raw);
+    if(!v) return false;
+    A.push(v); save(); if(typeof sendState==='function') sendState(); return true;
+  }
+
+  // ---------- speech ----------
+  var SR=window.SpeechRecognition||window.webkitSpeechRecognition, rec=null, armed=false, running=false;
+  function setSpin(on){ $('spin').classList.toggle('listen',!!on); }
+  function startRec(){
+    if(!SR) return;
+    if(!rec){
+      rec=new SR(); rec.continuous=true; rec.interimResults=false; rec.lang=S.lang;
+      rec.onresult=function(e){
+        for(var i=e.resultIndex;i<e.results.length;i++){
+          if(!e.results[i].isFinal) continue;
+          var t=e.results[i][0].transcript;
+          if(armed && addAnswer(t)){ armed=false; setSpin(false); }
+        }
+      };
+      rec.onend=function(){ running=false; if(armed){ try{rec.start();running=true;}catch(e){} } };
+      rec.onerror=function(){ running=false; };
+    }
+    rec.lang=S.lang;
+    if(!running){ try{rec.start(); running=true;}catch(e){} }
+  }
+  function arm(){
+    if(A.length>=slots().length) return;
+    armed=true; setSpin(true); startRec();
+  }
+
+  // ---------- gestures ----------
+  function hold(el,ms,fn){
+    var t=null, sx=0, sy=0;
+    el.addEventListener('pointerdown',function(e){ sx=e.clientX; sy=e.clientY; t=setTimeout(function(){t=null; el._held=true; fn();},ms); el._held=false; });
+    el.addEventListener('pointermove',function(e){ if(t && (Math.abs(e.clientX-sx)>15||Math.abs(e.clientY-sy)>15)){clearTimeout(t);t=null;} });
+    ['pointerup','pointercancel','pointerleave'].forEach(function(ev){el.addEventListener(ev,function(){ if(t){clearTimeout(t);t=null;} });});
+  }
+  $('listBody').addEventListener('click',function(e){
+    var row=e.target.closest('.row');
+    if(row && row.classList.contains('pred')){ openNote(); return; }
+    if(!row && !e.target.closest('.sec')) arm();   // empty black area = arm listening
+  });
+  function useSearch(){
+    var q=$('q').value.trim(); if(!q) return;
+    var parts = q.indexOf(',')>=0 ? q.split(',') : q.split(/\s+/);
+    parts.forEach(function(p){ if(p.trim()) addAnswer(p.trim()); });
+    $('q').value=''; $('q').blur();
+  }
+  $('q').addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); useSearch(); } });
+  function openNote(){ useSearch(); armed=false; setSpin(false); renderNote(); $('list').classList.add('hidden'); $('note').classList.remove('hidden'); }
+  $('nBack').addEventListener('click',function(){ if($('nBack')._held) return; $('note').classList.add('hidden'); $('list').classList.remove('hidden'); });
+  hold($('nBack'),1500,function(){ A=[]; save(); sendState(); $('note').classList.add('hidden'); $('list').classList.remove('hidden'); });
+  hold($('hTitle'),1500,openSet);
+  document.addEventListener('contextmenu',function(e){ if($('set').classList.contains('hidden')) e.preventDefault(); });
+
+  // ---------- settings ----------
+  function showAns(){ var sl=slots(); $('ans').textContent='Captured: '+(A.length? A.join(', ') : 'nothing yet')+'  ('+A.length+' of '+sl.length+')'; }
+  function openSet(){
+    $('sTpl').value=S.tpl; $('sDays').value=S.days; $('sOther').value=S.other; $('sLang').value=S.lang; $('sSub').value=S.sub; $('sCloud').checked=S.cloud;
+    $('sRemote').checked=S.remote; $('rLink').textContent=helperURL(); updRS();
+    showAns(); $('set').classList.remove('hidden');
+  }
+  function readSet(){
+    S.tpl=$('sTpl').value; S.days=Math.max(0,parseInt($('sDays').value,10)||0); S.other=$('sOther').value; S.lang=$('sLang').value;
+    S.sub=$('sSub').value; S.cloud=$('sCloud').checked; save(); renderList();
+  }
+  ['sTpl','sDays','sOther','sLang','sSub','sCloud'].forEach(function(id){ $(id).addEventListener('change',readSet); $(id).addEventListener('input',readSet); });
+  $('sReset').addEventListener('click',function(){ A=[]; save(); showAns(); sendState(); });
+  $('sDone').addEventListener('click',function(){ readSet(); $('set').classList.add('hidden'); });
+
+  // ---------- remote helper (ntfy.sh relay) ----------
+  function newTopic(){ var c='abcdefghjkmnpqrstuvwxyz23456789',t='nt'; var a=new Uint8Array(18); (window.crypto||{}).getRandomValues? crypto.getRandomValues(a):a.forEach(function(_,i){a[i]=Math.random()*255;}); for(var i=0;i<18;i++) t+=c[a[i]%c.length]; return t; }
+  if(!S.topic){ S.topic=newTopic(); save(); }
+  var es=null, rState='off';
+  function helperURL(){ return location.href.replace(/[#?].*$/,'').replace(/[^\/]*$/,'')+'helper.html#'+S.topic; }
+  function publish(obj){ if(!S.remote) return; try{ fetch('https://ntfy.sh/'+S.topic,{method:'POST',body:JSON.stringify(obj)}); }catch(e){} }
+  function sendState(){ publish({from:'notes',answers:A,slots:slots()}); }
+  function onRemote(m){
+    var d; try{ d=JSON.parse(m); }catch(e){ return; }
+    if(!d || d.from!=='helper') return;
+    if(d.cmd==='add'){ var sl=slots(); if(A.length<sl.length){ var v= sl[A.length]==='number'? (parseNumber(d.v)||d.v) : String(d.v).trim(); if(v){A.push(v);save();} } }
+    else if(d.cmd==='undo'){ A.pop(); save(); }
+    else if(d.cmd==='clear'){ A=[]; save(); }
+    if(!$('note').classList.contains('hidden')) renderNote();
+    if(!$('set').classList.contains('hidden')) showAns();
+    sendState();
+  }
+  function connect(){
+    if(es){ es.close(); es=null; }
+    if(!S.remote || !window.EventSource){ rState='off'; return; }
+    rState='connecting…';
+    es=new EventSource('https://ntfy.sh/'+S.topic+'/sse');
+    es.onopen=function(){ rState='connected ✓'; sendState(); updRS(); };
+    es.onerror=function(){ rState='reconnecting…'; updRS(); };
+    es.onmessage=function(e){ try{ var j=JSON.parse(e.data); if(j.event==='message') onRemote(j.message); }catch(x){} };
+  }
+  function updRS(){ var el=$('rStat'); if(el) el.textContent='Status: '+rState; }
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden && S.remote && (!es || es.readyState===2)) connect(); });
+  $('rCopy').addEventListener('click',function(){ var u=helperURL(); if(navigator.clipboard) navigator.clipboard.writeText(u).then(function(){ $('rCopy').textContent='Copied ✓'; setTimeout(function(){$('rCopy').textContent='Copy helper link';},1500); }); });
+  $('rNew').addEventListener('click',function(){ S.topic=newTopic(); save(); $('rLink').textContent=helperURL(); connect(); });
+  $('sRemote').addEventListener('change',function(){ S.remote=$('sRemote').checked; save(); connect(); });
+
+  renderList(); connect();
+  window.__notes={addAnswer:addAnswer,get:function(){return {A:A,note:filled()};},openNote:openNote,arm:arm};
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Helper">
+<meta name="theme-color" content="#000000">
+<title>Helper</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  body{background:#000;color:#fff;font-family:-apple-system,system-ui,"Helvetica Neue",Arial,sans-serif;
+    padding:calc(env(safe-area-inset-top) + 16px) 18px calc(env(safe-area-inset-bottom) + 20px);min-height:100vh}
+  h1{font-size:20px;font-weight:600;display:flex;align-items:center;gap:8px}
+  #dot{width:10px;height:10px;border-radius:50%;background:#ff453a;display:inline-block}
+  #dot.ok{background:#30d158}
+  #stat{color:#8e8e93;font-size:13px;margin-top:4px}
+  .slots{margin:18px 0 14px;background:#1c1c1e;border-radius:14px;overflow:hidden}
+  .slot{display:flex;justify-content:space-between;padding:12px 14px;font-size:17px;border-top:.5px solid #38383a}
+  .slot:first-child{border-top:none}
+  .slot .k{color:#8e8e93}
+  .slot .v{font-weight:600}
+  .slot.next{background:#2c2c2e}
+  .slot.next .k{color:#0a84ff}
+  #next{color:#8e8e93;font-size:14px;margin-bottom:8px}
+  input{width:100%;font-size:24px;padding:14px;border-radius:14px;border:1px solid #3a3a3c;background:#1c1c1e;color:#fff;outline:none}
+  .btns{display:flex;gap:10px;margin-top:12px}
+  button{flex:1;font-size:18px;font-weight:600;padding:15px;border-radius:14px;border:none;color:#fff;background:#2c2c2e}
+  button.send{background:#0a84ff;flex:2}
+  #err{color:#ff453a;font-size:14px;margin-top:10px;min-height:18px}
+  .tip{color:#636366;font-size:12px;line-height:1.5;margin-top:22px}
+</style>
+</head>
+<body>
+  <h1><span id="dot"></span> Helper</h1>
+  <div id="stat">Connecting…</div>
+  <div class="slots" id="slots"><div class="slot"><span class="k">Waiting for the performer’s phone…</span></div></div>
+  <div id="next"></div>
+  <input id="v" type="text" placeholder="Type the answer" autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false" enterkeyhint="send">
+  <div class="btns">
+    <button id="undo">Undo</button>
+    <button class="send" id="send">Send</button>
+  </div>
+  <div class="btns"><button id="clear">Clear all</button></div>
+  <div id="err"></div>
+  <p class="tip">Type each answer as soon as the spectator says it, then tap Send. The list above shows what is already written in the performer’s note. The performer’s Notes app must be open.</p>
+<script>
+(function(){
+  var topic=(location.hash||'').slice(1), $=function(id){return document.getElementById(id);};
+  if(!topic){ $('stat').textContent='This link is incomplete. Copy the helper link again from the performer’s Notes settings.'; return; }
+  var labels=[];
+  function pub(obj){
+    return fetch('https://ntfy.sh/'+topic,{method:'POST',body:JSON.stringify(Object.assign({from:'helper'},obj))})
+      .then(function(r){ if(!r.ok) throw 0; $('err').textContent=''; })
+      .catch(function(){ $('err').textContent='Not sent — check internet and try again.'; });
+  }
+  function render(st){
+    var sl=st.slots||[], an=st.answers||[], h='';
+    sl.forEach(function(t,i){
+      var cls='slot'+(i===an.length?' next':'');
+      h+='<div class="'+cls+'"><span class="k">'+(i+1)+'. '+(t==='number'?'Number':'Word')+'</span><span class="v">'+(an[i]!=null?String(an[i]).replace(/</g,'&lt;'):'—')+'</span></div>';
+    });
+    $('slots').innerHTML=h||'<div class="slot"><span class="k">No blanks in the note</span></div>';
+    $('next').textContent= an.length<sl.length ? 'Next: '+(sl[an.length]==='number'?'a number':'a word / name') : 'All answers are in ✓';
+    $('v').inputMode = (sl[an.length]==='number') ? 'numeric' : 'text';
+  }
+  function send(){ var v=$('v').value.trim(); if(!v) return; pub({cmd:'add',v:v}); $('v').value=''; $('v').focus(); }
+  $('send').addEventListener('click',send);
+  $('v').addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); send(); } });
+  $('undo').addEventListener('click',function(){ pub({cmd:'undo'}); });
+  $('clear').addEventListener('click',function(){ if(confirm('Clear all answers in the note?')) pub({cmd:'clear'}); });
+
+  var es;
+  function connect(){
+    es=new EventSource('https://ntfy.sh/'+topic+'/sse');
+    es.onopen=function(){ $('dot').className='ok'; $('stat').textContent='Connected. Waiting for the performer’s Notes app…'; pub({cmd:'ping'}); };
+    es.onerror=function(){ $('dot').className=''; $('stat').textContent='Reconnecting…'; };
+    es.onmessage=function(e){
+      try{ var j=JSON.parse(e.data); if(j.event!=='message') return; var d=JSON.parse(j.message);
+        if(d.from==='notes'){ $('stat').textContent='Linked to the performer’s Notes ✓'; render(d); } }catch(x){}
+    };
+  }
+  document.addEventListener('visibilitychange',function(){ if(!document.hidden && (!es||es.readyState===2)) connect(); });
+  connect();
+})();
+</script>
+</body>
+</html>
